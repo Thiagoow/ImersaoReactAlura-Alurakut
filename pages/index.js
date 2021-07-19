@@ -39,7 +39,7 @@ export default function Home() {
   o mesmo nome do seu usuário do GitHub, pois assim,
   pesquisamos seu nome na API do GitHub, e exibimos
   a foto definida no seu perfil do GitHub! :D */
-  const usuário = "thiagoow";
+  const user = "Thiagoow";
   /* Essa é a array com os outros usuários exibidos
   na sua comunidade ;D Podendo ser eles, seus seguidores,
   amigos, etc: */
@@ -64,13 +64,12 @@ export default function Home() {
         pela alura nos componentes da pasta "../src" */}
         {/* Coluna 1 - Área do perfil: */}
         <div className="profileArea" style={{ gridArea: "profileArea" }}>
-          {/*  */}
-          <ProfileSidebar userGitHub={usuário} />
+          <ProfileSidebar userGitHub={user} />
         </div>
         {/* Coluna 2 - Coluna central com infos do perfil e mensagem de "boas vindas, usuário!": */}
         <div className="welcomeArea" style={{ gridArea: "welcomeArea" }}>
           <Box>
-            <h1 className="title">Bem vindo(a) {usuário}</h1>
+            <h1 className="title">Bem vindo(a) {user}</h1>
             {/* Componente tbm já existente lá em "src\lib\AlurakutCommons.js": */}
             <OrkutNostalgicIconSet />
           </Box>
