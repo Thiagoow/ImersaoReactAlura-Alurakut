@@ -47,6 +47,7 @@ function ProfileSidebar(propsGitHub) {
   );
 }
 
+/* Componente ProfileRelations: */
 function ProfileRelationsBox(props) {
   return (
     <ProfileRelationsBoxWrapper>
@@ -84,6 +85,20 @@ export default function Home() {
     "yungsilva"
   ];
 
+  /* Cria a var de seguidores, com o estado inicial já sendo uma array vazia,
+  e a var pra alterar o estado da array de comunidades: */
+  const [seguidores, setSeguidores] = React.useState([]);
+  React.useEffect(function () {
+    //Pega os dados dos seguidores do usuário
+    fetch(`https://api.github.com/users/${user}/followers`)
+      .then(function (respostaServer) {
+        return respostaServer.json();
+      })
+      .then(function (respostaJSON) {
+        setSeguidores(respostaJSON);
+      });
+  }, []);
+
   /* Cria a var de comunidades, com o estado inicial já sendo o objeto de uma comunidade,
   e a var pra alterar o estado da array de comunidades: */
   const [comunidades, setComunidades] = React.useState([
@@ -94,9 +109,6 @@ export default function Home() {
     }
   ]);
 
-  /* Cria a var de seguidores, com o estado inicial já sendo uma array vazia,
-  e a var pra alterar o estado da array de comunidades: */
-  const [seguidores, setSeguidores] = React.useState([]);
   /* Pega a array de dados do GitHub: */
   React.useEffect(function () {
     //API GraphQL, no Dato CMS:
@@ -144,7 +156,7 @@ export default function Home() {
           </Box>
 
           <Box>
-            <h2 className="subTitle">Crie uma nova comunidade!</h2>
+            <h2 className="subTitle">O que você deseja fazer?</h2>
 
             <form>
               <div
@@ -177,10 +189,10 @@ export default function Home() {
                 }}
               >
                 <input
-                  placeholder="📛 Qual o nome da sua comunidade?"
+                  placeholder="📝 Qual o nome da sua comunidade?"
                   type="text"
                   name="title"
-                  aria-label="📛 Qual o nome da sua comunidade?"
+                  aria-label="📝 Qual o nome da sua comunidade?"
                 />
               </div>
 
