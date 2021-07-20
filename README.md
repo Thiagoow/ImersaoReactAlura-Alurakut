@@ -24,7 +24,8 @@
 - Possibilidade de criar comunidades,
 - Adicionar comentários na pagina.
 
-Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!(será muito bem-vinda).
+<b align="center"> Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!</b>
+<p align="center">(será muito bem-vinda)</p> 
 
 ## ⚙ Instalação
 
@@ -46,7 +47,7 @@ Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!(será m
 - <a href="https://twitter.com/juunegreiros">Juliana Negreiros</a> <br>
 - <a href="https://twitter.com/paulo_caelum">Paulo Silveira</a> <br>
 
-<h2 align="center"><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></h2>
+<h3 align="center"><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></h3>
 
 ## 📚 Objetivos do projeto
 
