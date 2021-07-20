@@ -1,3 +1,4 @@
+import React from "react";
 /* Ao invés de definir a estilização via Next nesse componente, igual
 todos os outros importados aqui, esse é o componente Master/Pai de todos,
 o qual não contém estilização própria, apenas a que já está definida nos outros
@@ -9,6 +10,7 @@ import MainGrid from "../src/components/MainGrid";
 import Box from "../src/components/Box";
 import {
   AlurakutMenu,
+  AlurakutProfileSidebarMenuDefault,
   OrkutNostalgicIconSet
 } from "../src/lib/AlurakutCommons";
 import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelations";
@@ -20,12 +22,24 @@ function ProfileSidebar(propsGitHub) {
 
   console.log(propsGitHub);*/
   return (
-    <Box>
+    /* Muda a tag da box de div pra "aside", lá embaixo no return: */
+    <Box as="aside">
       {/* Como por exemplo, a foto do usuário, a partir do @ dele: */}
       <img
         src={`https://github.com/${propsGitHub.userGitHub}.png`}
         style={{ borderRadius: "8px" }}
       />
+      <hr />
+
+      <a
+        className="boxLink"
+        href={`https://github.com/${propsGitHub.userGitHub}`}
+      >
+        {propsGitHub.userGitHub}
+      </a>
+      <hr />
+
+      <AlurakutProfileSidebarMenuDefault />
     </Box>
     /* Você pode ver os dados públicos dos seus seguidores 
     por exemplo, na API do GitHub, utilizando a URL:
@@ -40,6 +54,7 @@ export default function Home() {
   pesquisamos seu nome na API do GitHub, e exibimos
   a foto definida no seu perfil do GitHub! :D */
   const user = "Thiagoow";
+
   /* Essa é a array com os outros usuários exibidos
   na sua comunidade ;D Podendo ser eles, seus seguidores,
   amigos, etc: */
@@ -54,6 +69,15 @@ export default function Home() {
     "diego3g",
     "yungsilva"
   ];
+  /* Cria a var de comunidades, com o estado inicial já sendo o objeto de uma comunidade,
+  e a var pra alterar o estado da array de comunidades: */
+  const [comunidades, setComunidades] = React.useState([
+    {
+      id: "12802378123789378912789789123896123",
+      title: "Eu odeio acordar cedo",
+      image: "https://alurakut.vercel.app/capa-comunidade-01.jpg"
+    }
+  ]);
 
   return (
     <>
@@ -73,12 +97,89 @@ export default function Home() {
             {/* Componente tbm já existente lá em "src\lib\AlurakutCommons.js": */}
             <OrkutNostalgicIconSet />
           </Box>
+
+          <Box>
+            <h2 className="subTitle">Crie uma nova comunidade!</h2>
+
+            <form>
+              <div
+                onSubmit={function criaComunidade(event) {
+                  /* Previne o refresh da página, E nesse caso, como
+                  estamos sem SSR: a falha no salvamento da comunidade: */
+                  event.preventDefault();
+
+                  /* Retorna os dados do form na var "dadosForm" */
+                  const dadosForm = new FormData(event.target);
+
+                  console.log("Campo: ", dadosDoForm.get("title"));
+                  console.log("Campo: ", dadosDoForm.get("image"));
+
+                  const newComunidade = {
+                    id: new Date().toISOString(),
+                    title: dadosForm.get("title"),
+                    image: dadosForm.get("image")
+                  };
+                  /* Usando o operador spread (...), 
+                  envia o novo item pra array de comunidades: */
+                  const comunidadesAtualizadas = [
+                    ...comunidades,
+                    newComunidade
+                  ];
+                  /* Altera o estado da array, 
+                  inserindo um novo item, como se fosse o: 
+                    comunidades.push("item"); */
+                  setComunidades(comunidadesAtualizadas);
+                }}
+              >
+                <input
+                  placeholder="📛 Qual o nome da sua comunidade?"
+                  type="text"
+                  name="title"
+                  aria-label="📛 Qual o nome da sua comunidade?"
+                />
+              </div>
+
+              <div>
+                <input
+                  placeholder="🖼️ Qual a URL de imagem da capa da sua comunidade?"
+                  type="text"
+                  name="title"
+                  aria-label="🖼️ Qual a URL de imagem da capa da sua comunidade?"
+                />
+              </div>
+
+              <button>Criar comunidade</button>
+            </form>
+          </Box>
         </div>
 
         <div
           className="profileRelationsArea"
           style={{ gridArea: "profileRelationsArea" }}
         >
+          {/* Seção das comunidades: */}
+          <ProfileRelationsBoxWrapper>
+            <h2 className="smallTitle">
+              {/* Mostra a quantidade de items na array: */}
+              Comunidades ({comunidades.length}):
+            </h2>
+            <ul>
+              {/* Lista cada item da Array de "comunidades:": */}
+              {comunidades.map((comunidade) => {
+                return (
+                  /*  Mostra a imagem de cada item da Array de users: */
+                  <li key={comunidade.id}>
+                    <a href={`/users/${comunidade.title}`} key={comunidade.id}>
+                      <img src={comunidade.image} />
+                      <span>{comunidade.title}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </ProfileRelationsBoxWrapper>
+
+          {/* Seção de outros usuários: */}
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               {/* Mostra a quantidade de items na array: */}
@@ -92,7 +193,7 @@ export default function Home() {
                 return (
                   /*  Mostra a imagem de cada item da Array de users: */
                   <li key={itemArray}>
-                    <a href={`/users/${itemArray}`} key={itemArray}>
+                    <a href={`/users/${itemArray}`}>
                       <img src={`https://github.com/${itemArray}.png`} />
                       <span>{itemArray}</span>
                     </a>

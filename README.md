@@ -1,84 +1,137 @@
-# Example app with styled-components
+<h1 align="center">Imersão React - Alurakut</h1>
+<h4 align="justify">A Imersão React é gratuita e é voltada para profissionais, estudantes e para todo mundo que quer aprender mais sobre front-end. Nesta imersão vamos mergulhar no passado e dominar o futuro com o Alurakut! O projeto é uma versão do Orkut, criado com React, styled-components e next/js. </h4>
 
-This example features how you use a different styling solution than [styled-jsx](https://github.com/vercel/styled-jsx) that also supports universal styles. That means we can serve the required styles for the first render within the HTML and then load the rest in the client. In this case we are using [styled-components](https://github.com/styled-components/styled-components).
+<h2 align="center"><a href="https://alurakut-cas.vercel.app/">Clique aqui para ver meu projeto final!</a></h2>
 
-For this purpose we are extending the `<Document />` and injecting the server side rendered styles into the `<head>`, and also adding the `babel-plugin-styled-components` (which is required for server side rendering). Additionally we set up a global [theme](https://www.styled-components.com/docs/advanced#theming) for styled-components using NextJS custom [`<App>`](https://nextjs.org/docs/advanced-features/custom-app) component.
+## 📺 Imagem
 
-## Preview
+## 👨🏻‍💻 Linguagens e tecnologias utilizadas
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+<div align="center">
+<p align="left"> <a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a>
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-styled-components)
+<a href="https://www.w3.org/html/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a>
 
-## Deploy your own
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+<a href="https://nodejs.org" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-styled-components&project-name=with-styled-components&repository-name=with-styled-components)
+<a href="https://reactjs.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a>
 
-## How to use
+<a href="https://git-scm.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a>
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+<a href="https://www.figma.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> </p>
 
-```bash
-npx create-next-app --example with-styled-components with-styled-components-app
-# or
-yarn create next-app --example with-styled-components with-styled-components-app
-```
+</div>
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Funcionalidades da pagina
 
-### Try it on CodeSandbox
+- Logout funcionando,
+- Campos dos formulários obrigatórios,
+- Inputs dos formulários vazios após post,
+- Seguidores/Seguindo de acordo com o usuário,
+- Possibilidade de criar comunidades,
+- Adicionar comentários na pagina.
 
-[Open this example on CodeSandbox](https://codesandbox.io/s/github/vercel/next.js/tree/canary/examples/with-styled-components)
+Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!(será muito bem-vinda).
 
-### Notes
+## Instalação
 
-When wrapping a [Link](https://nextjs.org/docs/api-reference/next/link) from `next/link` within a styled-component, the [as](https://styled-components.com/docs/api#as-polymorphic-prop) prop provided by `styled` will collide with the Link's `as` prop and cause styled-components to throw an `Invalid tag` error. To avoid this, you can either use the recommended [forwardedAs](https://styled-components.com/docs/api#forwardedas-prop) prop from styled-components or use a different named prop to pass to a `styled` Link.
+<code>
+    - Clonar repositorio
+    $ git clone https://github.com/Thiagoow/ImersaoReactAlura-Alurakut
 
-<details>
-<summary>Click to expand workaround example</summary>
-<br />
+    - Instalar dependências
+    $ npm install
 
-**components/StyledLink.js**
+    - Rodar aplicativo
+    $ npm run dev</code>
 
-```javascript
-import Link from 'next/link'
-import styled from 'styled-components'
+<a href="styled-components.md">Example app with styled-components</a>
 
-const StyledLink = ({ as, children, className, href }) => (
-  <Link href={href} as={as} passHref>
-    <a className={className}>{children}</a>
-  </Link>
-)
+## 👩‍🏫/👨‍🏫 Instrutores
 
-export default styled(StyledLink)`
-  color: #0075e0;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
+- <a href="https://twitter.com/omariosouto">Mario Souto</a> <br>
+- <a href="https://twitter.com/juunegreiros">Juliana Negreiros</a> <br>
+- <a href="https://twitter.com/paulo_caelum">Paulo Silveira</a> <br>
 
-  &:hover {
-    color: #40a9ff;
-  }
+<h2 align="center"><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></h2>
 
-  &:focus {
-    color: #40a9ff;
-    outline: none;
-    border: 0;
-  }
-`
-```
+## 📚 Objetivos do projeto
 
-**pages/index.js**
+- Melhorar o entendimento de roteamento de páginas;
+- Aprender a exibir o conteúdo de uma API em páginas HTML;
+- Organizar pastas e componentes;
+- Pesquisar boas práticas com React e NextJs.
 
-```javascript
-import StyledLink from '../components/StyledLink'
+## 🎯 Desafios da Imersão
 
-export default () => (
-  <StyledLink href="/post/[pid]" forwardedAs="/post/abc">
-    First post
-  </StyledLink>
-)
-```
+- Aula 01
+  - [x] Pegar os dados da API do GitHub e listar seus seguidores;
+  - [x] Adicionar quão confiável, legal e sexy você é;
+  - [ ] Usar Strategy ao invés de vários ifs no css;
+  - [x] Separar e organizar o seu código;
+  - [x] Publicar o seu projeto;
+  - [x] Deixar o seu projeto com a sua cara;
+- Aula 02
+  - [x] Criar suas comunidades para compartilhar com o time da Alura;
+  - [x] Facilitar o cadastro da url da imagem;
+  - [x] Adicionar links para as suas comunidades
+  - [x] Adicionar o seu projeto na nossa vitrine;
+  - [x] Deixar o seu read me do projeto bonitão.
+- Aula 03
+  - [x] Terminar de listar seus seguidores através da api do Github;
+  - [x] Adicionar suas comunidades no DatoCMS;
+  - [x] Organizar os seus dados, pensando no que irá querer que apareça no seu Alurakut e criando os modelos que precisar;
+  - [x] Subir sua aplicação na Vercel.
+- Aula 04
+  - [x] Configurar suas variáveis de ambiente;
+  - [x] Fazer os scraps;
+  - [x] Subir sua aplicação na Vercel.
+- Aula 05
+  - [x] Fazer o logout da aplicação;
+  - [ ] Mensagem de feedback quando não conseguir logar na aplicação;
+  - [x] Criar página de perfil do usuário;
+  - [x] Subir a sua aplicação na Vercel e compartilhar com o time da Alura.
 
-</details>
+## 📂 Referências
+
+  <details>
+    <summary>Aula 01</summary>
+      - <a href="https://pt-br.reactjs.org/docs/create-a-new-react-app.html#recommended-toolchains">React</a> <br>
+      - <a href="https://www.youtube.com/watch?v=S-jqd6WZ7M0">Mario Souto - Strategy Pattern</a> <br>
+      - <a href="https://www.youtube.com/watch?v=85vJXFpXLQw">Mario Souto - Pegando dados de uma API com React</a> <br>
+      - <a href="https://www.youtube.com/watch?v=-kVnp3fg-v4">Mario Souto - O sistema de rotas do NextJS, principais dúvidas</a> <br>
+      - <a href="https://www.youtube.com/watch?v=yMRSDdifGW8">Mario Souto - Linter</a> <br>
+      - <a href="https://www.youtube.com/watch?v=Cu-HP-gvggg">Mario Souto - Centralizar conteúdo na tela</a> <br>
+      - <a href="https://cssgridgarden.com/">CSS Grid Garden</a> <br>
+      - <a href="https://www.youtube.com/watch?v=UBAX-13g8OM">Rafaella Ballerini - Como usar git e github na prática</a> <br>
+  </details>
+  <details>
+    <summary>Aula 02</summary>
+      - <a href="https://www.youtube.com/watch?v=yMRSDdifGW8&t=2s">Mario Souto - Github Pro + Eslint</a> <br>
+      - <a href="https://www.youtube.com/watch?v=jOAU81jdi-c&list=PLTcmLKdIkOWmeNferJ292VYKBXydGeDej">Criando Flappy Bird com JavaScript - Mario Souto</a> <br>
+      - <a href="https://www.youtube.com/watch?v=JbzcLKiTThk">Aprender forEach e map - Mario Souto</a> <br>
+  </details>
+  <details>
+    <summary>Aula 03</summary>
+      - <a href="https://www.youtube.com/watch?v=aiZSAn_2SJc">O que é Wordpress</a> <br>
+      - <a href="https://www.youtube.com/watch?v=IZi6nogysRM">Mario Souto - O que é um CMS</a> <br>
+  </details>
+  <details>
+    <summary>Aula 04</summary>
+      - <a href="https://www.youtube.com/watch?v=RLP9MixVZvw&t">Ju Negreiros - Hello World com GraphQL</a> <br>
+      - <a href="https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6">Como fazer ajax</a> <br>
+      - <a href="https://www.youtube.com/watch?v=IZi6nogysRM&t">Mario Souto - O que é um CMS?</a> <br>
+      - <a href="https://www.youtube.com/watch?v=BP2KQtCyzo8">Mario Souto - Variáveis de ambiente e segurança</a> <br>
+  </details>
+  <details>
+    <summary>Aula 05</summary>
+      - <a href="https://www.youtube.com/watch?v=x5Hs8kXlktM&t">Mario Souto - Rotas Next</a> <br>
+      - <a href="https://www.youtube.com/watch?v=zSl_n-9yGRs">Mario Souto - Cookies e LocalStorage</a> <br>
+      - <a href="https://www.youtube.com/watch?v=76eEzmx3irs">Mario Souto - SEO, Performance e Segurança no Front End</a> <br>
+      - <a href="https://www.alura.com.br/artigos/como-funciona-o-import-e-export-do-javascript">Post - Como funciona import e export do Javascript</a> <br>
+      - <a href="https://reactrouter.com/web/guides/quick-start">React Router DOM</a> <br>
+      - <a href="https://www.postman.com/">Postman</a> <br>
+      - <a href="https://www.youtube.com/watch?v=f8a-qwKC5yk">Ju Negreiros - Destructuring</a> <br>
+  </details>
