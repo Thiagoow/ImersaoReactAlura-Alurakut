@@ -119,6 +119,7 @@ export default function Home() {
         "Content-Type": "application/json",
         Accept: "application/json"
       },
+      /* Retorna no JSON, as infos: */
       body: JSON.stringify({
         query: `query {
         allComunidades {
@@ -130,8 +131,10 @@ export default function Home() {
       }`
       })
     })
-      .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
+      .then((serverResponse) => serverResponse.json()) // Pega o retorno do response.json() e já retorna
       .then((respostaCompleta) => {
+        /* Retorna a resposta do servidor
+        já transformada em JSON: */
         console.log(respostaCompleta);
       });
   }, []);
