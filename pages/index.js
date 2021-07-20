@@ -174,6 +174,8 @@ export default function Home() {
                   console.log("Campo: ", dadosDoForm.get("title"));
                   console.log("Campo: ", dadosDoForm.get("image"));
 
+                  /* Armazena num objeto, os dados digitados no
+                  formulário: */
                   const newComunidade = {
                     id: new Date().toISOString(),
                     title: dadosForm.get("title"),
