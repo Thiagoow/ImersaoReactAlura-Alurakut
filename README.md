@@ -24,31 +24,34 @@
 - Possibilidade de criar comunidades,
 - Adicionar comentários na pagina.
 
-<b align="center"> Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!</b>
-<p align="center">(será muito bem-vinda)</p> 
-
-## ⚙ Instalação
-
-<code>
-    - 1º:
-    $ git clone https://github.com/Thiagoow/ImersaoReactAlura-Alurakut
-
-    - 2º:
-    $ npm install
-
-    - 3º:
-    $ npm run dev
-</code>
-
-<a href="styled-components.md">Example app with styled-components</a>
-
 ## 👩‍🏫/👨‍🏫 Instrutores
 
 - <a href="https://twitter.com/omariosouto">Mario Souto</a> <br>
 - <a href="https://twitter.com/juunegreiros">Juliana Negreiros</a> <br>
 - <a href="https://twitter.com/paulo_caelum">Paulo Silveira</a> <br>
 
-<h4 align="center"><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></h4>
+<b><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></b>
+
+---
+
+<p align="center"> Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!</b>
+<p align="center">(será muito bem-vinda)</p> 
+
+---
+
+## ⚙ Instalação
+
+<code>
+    1º:
+    $ git clone https://github.com/Thiagoow/ImersaoReactAlura-Alurakut
+
+    2º:
+    $ npm install
+
+    3º:
+    $ npm run dev
+
+<a href="styled-components.md">Example app with styled-components</a>
 
 ## 📚 Objetivos do projeto
 
