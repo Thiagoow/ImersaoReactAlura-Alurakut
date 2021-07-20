@@ -30,14 +30,15 @@
 ## ⚙ Instalação
 
 <code>
-    - Clonar repositorio
+    - 1º:
     $ git clone https://github.com/Thiagoow/ImersaoReactAlura-Alurakut
 
-    - Instalar dependências
+    - 2º:
     $ npm install
 
-    - Rodar aplicativo
-    $ npm run dev</code>
+    - 3º:
+    $ npm run dev
+</code>
 
 <a href="styled-components.md">Example app with styled-components</a>
 
@@ -47,7 +48,7 @@
 - <a href="https://twitter.com/juunegreiros">Juliana Negreiros</a> <br>
 - <a href="https://twitter.com/paulo_caelum">Paulo Silveira</a> <br>
 
-<h3 align="center"><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></h3>
+<h4 align="center"><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></h4>
 
 ## 📚 Objetivos do projeto
 
