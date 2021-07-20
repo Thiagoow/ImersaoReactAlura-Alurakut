@@ -47,6 +47,19 @@ function ProfileSidebar(propsGitHub) {
   );
 }
 
+function ProfileRelationsBox(props) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {/* Mostra a quantidade de items na array: */}
+        {props.title} ({props.items.length}):
+      </h2>
+
+      {/*  */}
+    </ProfileRelationsBoxWrapper>
+  );
+}
+
 export default function Home() {
   /* Essa é a var que representa você 😁 =
   O user da rede social Alurakut. Sendo o seu nome,
@@ -65,10 +78,12 @@ export default function Home() {
     existente do GitHub: */
     "bedimcode",
     "origamid",
+    "cataline4learning",
     "maykbrito",
     "diego3g",
     "yungsilva"
   ];
+
   /* Cria a var de comunidades, com o estado inicial já sendo o objeto de uma comunidade,
   e a var pra alterar o estado da array de comunidades: */
   const [comunidades, setComunidades] = React.useState([
@@ -78,6 +93,22 @@ export default function Home() {
       image: "https://alurakut.vercel.app/capa-comunidade-01.jpg"
     }
   ]);
+
+  /* Cria a var de seguidores, com o estado inicial já sendo uma array vazia,
+  e a var pra alterar o estado da array de comunidades: */
+  const [seguidores, setSeguidores] = React.useState([]);
+  /* Pega a array de dados do GitHub: */
+  React.useEffect(function () {
+    fetch("https://api.github.com/users/thiagoow/followers")
+      .then(function (serverResponse) {
+        //Transforma em Json:
+        return serverResponse.json();
+      })
+      .then(function (respostaJson) {
+        //Exibe a resposta em json no:
+        setSeguidores(respostaJson);
+      });
+  }, []);
 
   return (
     <>
@@ -157,6 +188,9 @@ export default function Home() {
           className="profileRelationsArea"
           style={{ gridArea: "profileRelationsArea" }}
         >
+          {/* Seção de seguidores: */}
+          <ProfileRelationsBox title="Seguidores" items={seguidores} />
+
           {/* Seção das comunidades: */}
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
