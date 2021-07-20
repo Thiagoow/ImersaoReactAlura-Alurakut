@@ -99,14 +99,28 @@ export default function Home() {
   const [seguidores, setSeguidores] = React.useState([]);
   /* Pega a array de dados do GitHub: */
   React.useEffect(function () {
-    fetch("https://api.github.com/users/thiagoow/followers")
-      .then(function (serverResponse) {
-        //Transforma em Json:
-        return serverResponse.json();
+    //API GraphQL, no Dato CMS:
+    fetch("https://graphql.datocms.com/", {
+      method: "POST",
+      headers: {
+        Authorization: "f498efcb034b6dd6f8a6ac46cdae8e",
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        query: `query {
+        allComunidades {
+          id 
+          title
+          imageurl
+          creatorSlug
+        }
+      }`
       })
-      .then(function (respostaJson) {
-        //Exibe a resposta em json no:
-        setSeguidores(respostaJson);
+    })
+      .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
+      .then((respostaCompleta) => {
+        console.log(respostaCompleta);
       });
   }, []);
 
