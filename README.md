@@ -1,7 +1,7 @@
 <h1 align="center">Imersão React - Alurakut</h1>
 <h4 align="center">A Imersão React é gratuita e é voltada para profissionais, estudantes e para todo mundo que quer aprender mais sobre front-end. Nesta imersão vamos mergulhar no passado e dominar o futuro com o Alurakut! O projeto é uma versão do Orkut, criado com React, styled-components e next/js. </h4>
 
-<h2 align="center"><a href="https://alurakut-cas.vercel.app/">Clique aqui para ver meu projeto final!</a></h2>
+<h2 align="center"><a href="">Clique aqui para ver meu projeto final!</a></h2>
 
 ## 📺 Screenshot
 
@@ -17,11 +17,11 @@
 
 ## ✔ Funcionalidades do projeto
 
-- Logout funcionando,
-- Campos dos formulários obrigatórios,
-- Inputs dos formulários vazios após post,
-- Seguidores/Seguindo de acordo com o usuário,
-- Possibilidade de criar comunidades,
+- Logout funcionando;
+- Campos dos formulários obrigatórios;
+- Inputs dos formulários vazios após post;
+- Seguidores/Seguindo de acordo com o usuário;
+- Possibilidade de criar comunidades;
 - Adicionar comentários na pagina.
 
 ## 👩‍🏫/👨‍🏫 Instrutores
@@ -68,7 +68,7 @@
   - [ ] Usar Strategy ao invés de vários ifs no css;
   - [x] Separar e organizar o seu código;
   - [x] Publicar o seu projeto;
-  - [x] Deixar o seu projeto com a sua cara;
+  - [x] Deixar o seu projeto com a sua cara.
 - Aula 02
   - [x] Criar suas comunidades para compartilhar com o time da Alura;
   - [x] Facilitar o cadastro da url da imagem;
