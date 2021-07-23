@@ -135,7 +135,9 @@ export default function Home() {
       .then((respostaCompleta) => {
         /* Retorna a resposta do servidor
         já transformada em JSON: */
-        console.log(respostaCompleta);
+        const comunidadesDatoCMS = respostaCompleta.data.allComunidades;
+        /* console.log(comunidadesDatoCMS); */
+        setComunidades(comunidadesDatoCMS);
       });
   }, []);
 
@@ -177,20 +179,33 @@ export default function Home() {
                   /* Armazena num objeto, os dados digitados no
                   formulário: */
                   const newComunidade = {
-                    id: new Date().toISOString(),
                     title: dadosForm.get("title"),
-                    image: dadosForm.get("image")
+                    imageurl: dadosForm.get("image"),
+                    creatorSlug: user
                   };
-                  /* Usando o operador spread (...), 
+
+                  /* */
+                  fetch("/api/comunidades", {
+                    method: "POST",
+                    headers: {
+                      ContentType: "application/json"
+                    },
+                    body: JSON.stringify(newComunidade)
+                  }).then(async (response) => {
+                    const dados = await response.json();
+                    console.log(dados.registroCriado);
+                    const newComunidade = dados.registroCriado;
+                    /* Usando o operador spread (...), 
                   envia o novo item pra array de comunidades: */
-                  const comunidadesAtualizadas = [
-                    ...comunidades,
-                    newComunidade
-                  ];
-                  /* Altera o estado da array, 
+                    const comunidadesAtualizadas = [
+                      ...comunidades,
+                      newComunidade
+                    ];
+                    /* Altera o estado da array, 
                   inserindo um novo item, como se fosse o: 
                     comunidades.push("item"); */
-                  setComunidades(comunidadesAtualizadas);
+                    setComunidades(comunidadesAtualizadas);
+                  });
                 }}
               >
                 <input
@@ -234,8 +249,11 @@ export default function Home() {
                 return (
                   /*  Mostra a imagem de cada item da Array de users: */
                   <li key={comunidade.id}>
-                    <a href={`/users/${comunidade.title}`} key={comunidade.id}>
-                      <img src={comunidade.image} />
+                    <a
+                      href={`/comunidades/${comunidade.title}`}
+                      key={comunidade.id}
+                    >
+                      <img src={comunidade.imageurl} />
                       <span>{comunidade.title}</span>
                     </a>
                   </li>
