@@ -99,15 +99,9 @@ export default function Home() {
       });
   }, []);
 
-  /* Cria a var de comunidades, com o estado inicial já sendo o objeto de uma comunidade,
+  /* Cria a var de comunidades, com o estado inicial sendo uma array vazia,
   e a var pra alterar o estado da array de comunidades: */
-  const [comunidades, setComunidades] = React.useState([
-    {
-      id: "12802378123789378912789789123896123",
-      title: "Eu odeio acordar cedo",
-      image: "https://alurakut.vercel.app/capa-comunidade-01.jpg"
-    }
-  ]);
+  const [comunidades, setComunidades] = React.useState([]);
 
   /* Pega a array de dados do GitHub: */
   React.useEffect(function () {
@@ -163,51 +157,51 @@ export default function Home() {
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
 
-            <form>
-              <div
-                onSubmit={function criaComunidade(event) {
-                  /* Previne o refresh da página, E nesse caso, como
+            <form
+              onSubmit={function criaComunidade(e) {
+                /* Previne o refresh da página, E nesse caso, como
                   estamos sem SSR: a falha no salvamento da comunidade: */
-                  event.preventDefault();
+                e.preventDefault();
 
-                  /* Retorna os dados do form na var "dadosForm" */
-                  const dadosForm = new FormData(event.target);
+                /* Retorna os dados do form na var "dadosForm" */
+                const dadosForm = new FormData(e.target);
 
-                  console.log("Campo: ", dadosDoForm.get("title"));
-                  console.log("Campo: ", dadosDoForm.get("image"));
+                console.log("Nome Comunidade: ", dadosForm.get("title"));
+                console.log("URL da imagem: ", dadosForm.get("image"));
 
-                  /* Armazena num objeto, os dados digitados no
+                /* Armazena num objeto, os dados digitados no
                   formulário: */
-                  const newComunidade = {
-                    title: dadosForm.get("title"),
-                    imageurl: dadosForm.get("image"),
-                    creatorSlug: user
-                  };
+                const newComunidade = {
+                  title: dadosForm.get("title"),
+                  imageurl: dadosForm.get("image"),
+                  creatorSlug: user
+                };
 
-                  /* */
-                  fetch("/api/comunidades", {
-                    method: "POST",
-                    headers: {
-                      ContentType: "application/json"
-                    },
-                    body: JSON.stringify(newComunidade)
-                  }).then(async (response) => {
-                    const dados = await response.json();
-                    console.log(dados.registroCriado);
-                    const newComunidade = dados.registroCriado;
-                    /* Usando o operador spread (...), 
+                /* */
+                fetch("/api/comunidades", {
+                  method: "POST",
+                  headers: {
+                    ContentType: "application/json"
+                  },
+                  body: JSON.stringify(newComunidade)
+                }).then(async (response) => {
+                  const dados = await response.json();
+                  console.log(dados.registroCriado);
+                  const newComunidade = dados.registroCriado;
+                  /* Usando o operador spread (...), 
                   envia o novo item pra array de comunidades: */
-                    const comunidadesAtualizadas = [
-                      ...comunidades,
-                      newComunidade
-                    ];
-                    /* Altera o estado da array, 
+                  const comunidadesAtualizadas = [
+                    ...comunidades,
+                    newComunidade
+                  ];
+                  /* Altera o estado da array, 
                   inserindo um novo item, como se fosse o: 
                     comunidades.push("item"); */
-                    setComunidades(comunidadesAtualizadas);
-                  });
-                }}
-              >
+                  setComunidades(comunidadesAtualizadas);
+                });
+              }}
+            >
+              <div>
                 <input
                   placeholder="📝 Qual o nome da sua comunidade?"
                   type="text"
@@ -219,8 +213,7 @@ export default function Home() {
               <div>
                 <input
                   placeholder="🖼️ Qual a URL de imagem da capa da sua comunidade?"
-                  type="text"
-                  name="title"
+                  name="image"
                   aria-label="🖼️ Qual a URL de imagem da capa da sua comunidade?"
                 />
               </div>
