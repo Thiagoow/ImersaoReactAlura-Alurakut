@@ -158,13 +158,13 @@ export default function Home() {
             <h2 className="subTitle">O que você deseja fazer?</h2>
 
             <form
-              onSubmit={function criaComunidade(e) {
+              onSubmit={function criaComunidade(event) {
                 /* Previne o refresh da página, E nesse caso, como
                   estamos sem SSR: a falha no salvamento da comunidade: */
-                e.preventDefault();
+                event.preventDefault();
 
                 /* Retorna os dados do form na var "dadosForm" */
-                const dadosForm = new FormData(e.target);
+                const dadosForm = new FormData(event.target);
 
                 console.log("Nome Comunidade: ", dadosForm.get("title"));
                 console.log("URL da imagem: ", dadosForm.get("image"));
@@ -181,7 +181,8 @@ export default function Home() {
                 fetch("/api/comunidades", {
                   method: "POST",
                   headers: {
-                    ContentType: "application/json"
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
                   },
                   body: JSON.stringify(newComunidade)
                 }).then(async (response) => {
