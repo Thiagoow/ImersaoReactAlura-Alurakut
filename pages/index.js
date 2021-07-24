@@ -181,8 +181,7 @@ export default function Home() {
                 fetch("/api/comunidades", {
                   method: "POST",
                   headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json"
+                    "Content-Type": "application/json"
                   },
                   body: JSON.stringify(newComunidade)
                 }).then(async (response) => {

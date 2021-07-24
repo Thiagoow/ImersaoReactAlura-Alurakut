@@ -15,6 +15,7 @@ export default async function recebeRequests(request, response) {
     });
 
     response.json({
+      dados: "Algum dado qualquer",
       /* Retorna o novo item/registro criado acima:  */
       registroCriado: registroCriado
     });
