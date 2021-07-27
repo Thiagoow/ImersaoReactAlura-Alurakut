@@ -1,6 +1,9 @@
 import React from "react";
+//Hook do Next.js:
+import { useRouter } from "next/router";
 
 export default function LoginScreen() {
+  const router = useRouter();
   return (
     <main
       style={{
@@ -31,36 +34,15 @@ export default function LoginScreen() {
         <section className="formArea">
           <form
             className="box"
-            onSubmit={(infosDoEvento) => {
-              infosDoEvento.preventDefault();
-              // alert('Alguém clicou no botão!')
-              console.log("Usuário: ", user);
-              fetch("https://alurakut.vercel.app/api/login", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ user: user })
-              }).then(async (respostaDoServer) => {
-                const dadosDaResposta = await respostaDoServer.json();
-                const token = dadosDaResposta.token;
-                nookies.set(null, "USER_TOKEN", token, {
-                  path: "/",
-                  maxAge: 86400 * 7
-                });
-                router.push("/");
-              });
+            onSubmit={(event) => {
+              event.preventDefault();
+              router.push("/");
             }}
           >
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
             </p>
-            <input
-              placeholder="Usuário"
-              onChange={(evento) => {
-                setUser(evento.target.value);
-              }}
-            />
+            <input placeholder="Usuário" />
             <button type="submit">Login</button>
           </form>
 
