@@ -1,6 +1,10 @@
 import React from "react";
 //Hook do Next.js:
 import { useRouter } from "next/router";
+/* Importa os nookies -> Biblioteca do Next.js pra
+salvar infos com os cookies do browser. Nesse nosso
+caso, o Token gerado pela API. */
+import nookies from "nookies";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -41,7 +45,32 @@ export default function LoginScreen() {
             onSubmit={(event) => {
               event.preventDefault();
               console.log("Usuário: ", githubUser);
-              router.push("/");
+              /* Verifica se o usuário existe ou não, na api já
+                existente da Alura:*/
+              fetch("https://alurakut.vercel.app/api/login", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                //Transforma em string pelo padrão Json, a var de usuário:
+                body: JSON.stringify({ githubUser: "Thiagoow" })
+              }).then(async (serverResponse) => {
+                //Transforma a resposta do server em json:
+                const serverData = await serverResponse.json();
+                const token = serverData.token;
+                /*Cria um novo cookie com o token recebido do server: 
+                com a sintaxe:
+                "nookies.set(ctx/Contexto(Se Não tiver é nulo), NomeInfo, valorInfo)"*/
+                nookies.set(null, "USER_TOKEN", token, {
+                  path: "/",
+                  /*Data de expiração/auto destruição
+                  do Cookie (em seg):*/
+                  maxAge: 86400 * 7 //<- 1 semana (1 dia em seg * 7)
+                });
+                /* Manda pra const "router", criada lá em cima do código,
+                e que recebe o useRouter do Next, a "/" que é o path para o index.js: */
+                router.push("/");
+              });
             }}
           >
             <p>
@@ -56,18 +85,6 @@ export default function LoginScreen() {
               onChange={(event) => {
                 //Seta o estado da var githubUser para oq foi digitado no input:
                 setGithubUser(event.target.value);
-
-                /* Verifica se o usuário existe ou não, na api já
-                existente da Alura:*/
-                fetch("https://alurakut.vercel.app/api/login", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({ githubUser: "Thiagoow" })
-                }).then(async (serverResponse) => {
-                  console.log(await serverResponse.json());
-                });
               }}
             />
             {/* Tratamento de erro: */}
