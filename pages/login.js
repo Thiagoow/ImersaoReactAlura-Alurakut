@@ -4,6 +4,10 @@ import { useRouter } from "next/router";
 
 export default function LoginScreen() {
   const router = useRouter();
+  const [githubUser, setGithubUser] = React.useState("");
+  const [userExist, setUserExist] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
+
   return (
     <main
       style={{
@@ -36,24 +40,59 @@ export default function LoginScreen() {
             className="box"
             onSubmit={(event) => {
               event.preventDefault();
+              console.log("Usuário: ", githubUser);
               router.push("/");
             }}
           >
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
             </p>
-            <input placeholder="Usuário" />
-            <button type="submit">Login</button>
+            {/* A prop "value={}" é o que integra o estado da var do React
+            com oq é digitado no input. Sendo ela, o estado inicial imutável
+            do input. E o onChange o valor/estado alterável: */}
+            <input
+              placeholder="Usuário"
+              value={githubUser}
+              onChange={(event) => {
+                //Seta o estado da var githubUser para oq foi digitado no input:
+                setGithubUser(event.target.value);
+
+                /* Verifica se o usuário existe ou não, na api já
+                existente da Alura:*/
+                fetch("https://alurakut.vercel.app/api/login", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ githubUser: "Thiagoow" })
+                }).then(async (serverResponse) => {
+                  console.log(await serverResponse.json());
+                });
+              }}
+            />
+            {/* Tratamento de erro: */}
+            {githubUser.length === 0 ? "Preencha o campo" : ""}
+            {!userExist && (
+              <span
+                style={{ fontSize: "13px", color: "red", marginBottom: "12px" }}
+              >
+                Este usuário é inválido! Tente novamente
+              </span>
+            )}
+
+            <button type="submit" disabled={isLoading ? true : false}>
+              {isLoading ? "Entrando..." : "Entrar"}
+            </button>
           </form>
 
-          <footer className="box">
+          {/* <footer className="box">
             <p>
               Ainda não é membro? <br />
               <a href="/login">
-                <strong>ENTRAR JÁ</strong>
+                <strong>CADASTRE-SE JÁ</strong>
               </a>
             </p>
-          </footer>
+          </footer> */}
         </section>
 
         <footer className="footerArea">
