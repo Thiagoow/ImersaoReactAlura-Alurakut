@@ -26,16 +26,16 @@ function ProfileSidebar(propsGitHub) {
     <Box as="aside">
       {/* Como por exemplo, a foto do usuário, a partir do @ dele: */}
       <img
-        src={`https://github.com/${propsGitHub.userGitHub}.png`}
+        src={`https://github.com/${propsGitHub.githubUser}.png`}
         style={{ borderRadius: "8px" }}
       />
       <hr />
 
       <a
         className="boxLink"
-        href={`https://github.com/${propsGitHub.userGitHub}`}
+        href={`https://github.com/${propsGitHub.githubUser}`}
       >
-        {propsGitHub.userGitHub}
+        {propsGitHub.githubUser}
       </a>
       <hr />
 
@@ -61,13 +61,15 @@ function ProfileRelationsBox(props) {
   );
 }
 
-export default function Home() {
+//Componente principal DENTRO desse componente Master:
+export default function Home(props) {
   /* Essa é a var que representa você 😁 =
   O user da rede social Alurakut. Sendo o seu nome,
   o mesmo nome do seu usuário do GitHub, pois assim,
   pesquisamos seu nome na API do GitHub, e exibimos
   a foto definida no seu perfil do GitHub! :D */
-  const user = "Thiagoow";
+  const user = props.githubUser; /* Definido lá embaixo
+  nesse arquivo, utilizando o SSR */
 
   /* Essa é a array com os outros usuários exibidos
   na sua comunidade ;D Podendo ser eles, seus seguidores,
@@ -144,7 +146,7 @@ export default function Home() {
         pela alura nos componentes da pasta "../src" */}
         {/* Coluna 1 - Área do perfil: */}
         <div className="profileArea" style={{ gridArea: "profileArea" }}>
-          <ProfileSidebar userGitHub={user} />
+          <ProfileSidebar githubUser={user} />
         </div>
         {/* Coluna 2 - Coluna central com infos do perfil e mensagem de "boas vindas, usuário!": */}
         <div className="welcomeArea" style={{ gridArea: "welcomeArea" }}>
@@ -282,4 +284,20 @@ export default function Home() {
       </MainGrid>
     </>
   );
+}
+/*A partir daqui, parte do SSR -> Server Side Rendering 
+= Não é exibe no navegador,e muitas vezes nem no console, 
+apenas no terminal onde seu projeta está sendo compilado*/
+
+/* Só deixa o usuário acessar essa página Home, SE ele
+estiver autenticado, com um usuário existente do GitHub: */
+export async function getStaticProps(context) {
+  /* Pega o githubUser digitado pelo usuário na 
+  tela de login a partir do cookie de TOKEN: */
+  console.log(context);
+  return {
+    props: {
+      githubUser: "Thiagoow"
+    } // will be passed to the page component as props
+  };
 }
