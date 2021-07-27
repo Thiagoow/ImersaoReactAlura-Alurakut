@@ -53,7 +53,7 @@ export default function LoginScreen() {
                   "Content-Type": "application/json"
                 },
                 //Transforma em string pelo padrão Json, a var de usuário:
-                body: JSON.stringify({ githubUser: "Thiagoow" })
+                body: JSON.stringify({ githubUser: githubUser })
               }).then(async (serverResponse) => {
                 //Transforma a resposta do server em json:
                 const serverData = await serverResponse.json();

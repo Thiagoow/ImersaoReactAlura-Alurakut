@@ -14,6 +14,11 @@ import {
   OrkutNostalgicIconSet
 } from "../src/lib/AlurakutCommons";
 import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelations";
+/* Importando a biblioteca de Cookies para o SSR de página: */
+import nookies from "nookies";
+/* Importando a biblioteca pra decodificar 
+as infos do token, que está dentro do cookie: */
+import jwt from "jsonwebtoken";
 
 function ProfileSidebar(propsGitHub) {
   /* Usando o próprio GitHub como API, podemos
@@ -294,10 +299,22 @@ estiver autenticado, com um usuário existente do GitHub: */
 export async function getStaticProps(context) {
   /* Pega o githubUser digitado pelo usuário na 
   tela de login a partir do cookie de TOKEN: */
-  console.log(context);
+  const cookies = nookies.get(context);
+  const token = cookies.USER_TOKEN;
+  /*TODO:
+  Consertar a var cookies que retorna como objeto vazio*/
+  console.log(cookies);
+  //Quando tiver funfando:
+  /*Decodifica o token com a biblioteca jsonwebtoken
+  const { githubUser } = jwt.decode(token);
+  console.log("Token decodificado do Cookie:", githubUser);*/
+
   return {
     props: {
       githubUser: "Thiagoow"
+      /*Quando tiver funfando:
+      githubUser
+      */
     } // will be passed to the page component as props
   };
 }
