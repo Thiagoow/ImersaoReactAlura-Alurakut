@@ -1,3 +1,6 @@
+<div align="center">
+<img src="./public/pageIcon.ico" align="center">
+</div>
 <h1 align="center">Imersão React - Alurakut</h1>
 <h4 align="center">A Imersão React é gratuita e é voltada para profissionais, estudantes e para todo mundo que quer aprender mais sobre front-end. Nesta imersão vamos mergulhar no passado e dominar o futuro com o Alurakut! O projeto é uma versão do Orkut, criado com React, styled-components e next/js. </h4>
 
