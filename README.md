@@ -5,6 +5,10 @@
 
 ## 📺 Screenshot
 
+<div align="center">
+<img src="./ReadMeFiles/app.jpg" align="center">
+</div>
+
 ## 👨🏻‍💻 Linguagens e tecnologias utilizadas
 
 <p align="left"> <a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a>
