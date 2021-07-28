@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import NextLink from "next/link";
+import { destroyCookie } from "nookies";
 
 const BASE_URL = "http://alurakut.vercel.app/";
 const v = "1";
@@ -19,15 +20,18 @@ function Link({ href, children, ...props }) {
 export function AlurakutMenu({ githubUser }) {
   const [isMenuOpen, setMenuState] = React.useState(false);
   return (
-    <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
+    <AlurakutMenu.Wrapper
+      isMenuOpen={isMenuOpen}
+      className={isMenuOpen ? "active" : ""}
+    >
       <div className="container">
         <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
 
         <nav style={{ flex: 1 }}>
           {[
             { name: "Inicio", slug: "/" },
-            { name: "Amigos", slug: "/amigos" },
-            { name: "Comunidades", slug: "/comunidades" }
+            { name: "Amigos", slug: "/friends" },
+            { name: "Comunidades", slug: "/communities" }
           ].map((menuItem) => (
             <Link
               key={`key__${menuItem.name.toLocaleLowerCase()}`}
@@ -39,7 +43,15 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href={`/logout`}>Sair</a>
+          <Link
+            href="/login"
+            onClick={() => {
+              destroyCookie(null, "token");
+              destroyCookie(null, "userId");
+            }}
+          >
+            Sair
+          </Link>
           <div>
             <input placeholder="Pesquisar no Orkut" />
           </div>
@@ -59,6 +71,11 @@ export function AlurakutMenu({ githubUser }) {
 AlurakutMenu.Wrapper = styled.header`
   width: 100%;
   background-color: #308bc5;
+
+  &.active {
+    position: fixed;
+    z-index: 100;
+  }
 
   .alurakutMenuProfileSidebar {
     background: white;
@@ -180,15 +197,21 @@ function AlurakutMenuProfileSidebar({ githubUser }) {
           src={`https://github.com/${githubUser}.png`}
           style={{ borderRadius: "8px" }}
         />
+
         <hr />
+
         <p>
-          <a className="boxLink" href={`/user/${githubUser}`}>
+          <a
+            className="boxLink"
+            href={`https://github.com/${githubUser}`}
+            target="_blank"
+          >
             @{githubUser}
           </a>
         </p>
         <hr />
 
-        <AlurakutProfileSidebarMenuDefault />
+        <AlurakutProfileSidebarMenuDefault githubUser={githubUser} />
       </div>
     </div>
   );
@@ -197,41 +220,72 @@ function AlurakutMenuProfileSidebar({ githubUser }) {
 // ================================================================================================================
 // AlurakutProfileSidebarMenuDefault
 // ================================================================================================================
-export function AlurakutProfileSidebarMenuDefault() {
+export function AlurakutProfileSidebarMenuDefault({
+  githubUser,
+  isCommunityInfo,
+  isFriendInfo,
+  handleJoinCommunity,
+  isMember,
+  isLoading
+}) {
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
-      <nav>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/user.svg`} />
-          Perfil
-        </a>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/book.svg`} />
-          Recados
-        </a>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/camera.svg`} />
-          Fotos
-        </a>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/sun.svg`} />
-          Depoimentos
-        </a>
-      </nav>
-      <hr />
-      <nav>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/plus.svg`} />
-          GitHub Trends
-        </a>
-        <a href="/logout">
-          <img src={`${BASE_URL}//icons/logout.svg`} />
-          Sair
-        </a>
-      </nav>
+      {!isCommunityInfo ? (
+        <>
+          <nav>
+            <Link href="/">
+              <img src={`${BASE_URL}/icons/user.svg`} />
+              Perfil
+            </Link>
+            <Link
+              href={isFriendInfo ? `/scrapbook/${githubUser}` : `/scrapbook`}
+            >
+              <img src={`${BASE_URL}/icons/book.svg`} />
+              Recados
+            </Link>
+            <Link href="/">
+              <img src={`${BASE_URL}/icons/camera.svg`} />
+              Fotos
+            </Link>
+            <Link href="/">
+              <img src={`${BASE_URL}/icons/sun.svg`} />
+              Depoimentos
+            </Link>
+          </nav>
+          <hr />
+          <nav>
+            <Link href="/">
+              <img src={`${BASE_URL}/icons/plus.svg`} />
+              GitHub Trends
+            </Link>
+            <Link
+              href="/login"
+              onClick={() => {
+                destroyCookie(null, "token");
+                destroyCookie(null, "userId");
+              }}
+            >
+              <img src={`${BASE_URL}//icons/logout.svg`} />
+              Sair
+            </Link>
+          </nav>
+        </>
+      ) : (
+        <nav>
+          <button
+            className="plusButton"
+            onClick={(e) => handleJoinCommunity(e)}
+            disabled={!isLoading ? "" : true}
+          >
+            <img src={`${BASE_URL}/icons/plus.svg`} />
+            {isMember ? "Participando" : "Participar da comunidade"}
+          </button>
+        </nav>
+      )}
     </AlurakutProfileSidebarMenuDefault.Wrapper>
   );
 }
+
 AlurakutProfileSidebarMenuDefault.Wrapper = styled.div`
   a {
     font-size: 12px;
@@ -242,6 +296,31 @@ AlurakutProfileSidebarMenuDefault.Wrapper = styled.div`
     justify-content: flex-start;
     text-decoration: none;
     img {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+  }
+
+  .plusButton {
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-align: left;
+
+    font-size: 12px;
+    color: #2e7bb4;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    img {
+      display: inline;
       width: 16px;
       height: 16px;
       margin-right: 5px;
@@ -287,8 +366,7 @@ export function OrkutNostalgicIconSet(props) {
         { name: "Legal", slug: "legal", icon: "cool" },
         { name: "Sexy", slug: "sexy", icon: "heart" }
       ].map(({ name, slug, icon }) => {
-        /* ícones ativos: */
-        const total = props[slug] ? props[slug] : 3;
+        const total = props[slug] ? props[slug] : 2;
         return (
           <li key={`orkut__icon_set__${slug}`}>
             <span className="OrkutNostalgicIconSet__title">{name}</span>
@@ -318,7 +396,7 @@ export function OrkutNostalgicIconSet(props) {
   );
 }
 OrkutNostalgicIconSet.List = styled.ul`
-  margin-top: 32px;
+  margin-top: 24px;
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -520,7 +598,8 @@ export const AlurakutStyles = css`
       opacity: 0.5;
     }
   }
-  input {
+  input,
+  textarea {
     transition: 0.3s;
     outline: 0;
     &:disabled {

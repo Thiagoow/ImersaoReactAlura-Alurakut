@@ -9,8 +9,38 @@ import nookies from "nookies";
 export default function LoginScreen() {
   const router = useRouter();
   const [githubUser, setGithubUser] = React.useState("");
-  const [userExist, setUserExist] = React.useState(true);
-  const [isLoading, setIsLoading] = React.useState(false);
+
+  function handleSignIn(event) {
+    event.preventDefault();
+    //console.log("Usuário: ", githubUser);
+
+    /* Verifica se o usuário existe ou não, na api já
+    existente da Alura:*/
+    fetch("https://alurakut.vercel.app/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      //Transforma em string pelo padrão Json, a var de usuário:
+      body: JSON.stringify({ githubUser: githubUser })
+    }).then(async (serverResponse) => {
+      //Transforma a resposta do server em json:
+      const serverData = await serverResponse.json();
+      const token = serverData.token;
+      /*Cria um novo cookie com o token recebido do server: 
+                com a sintaxe:
+                "nookies.set(ctx/Contexto(Se Não tiver é nulo), NomeInfo, valorInfo)"*/
+      nookies.set(null, "USER_TOKEN", token, {
+        path: "/",
+        /*Data de expiração/auto destruição
+                  do Cookie (em seg):*/
+        maxAge: 86400 * 7 //<- 1 semana (1 dia em seg * 7)
+      });
+      /* Manda pra const "router", criada lá em cima do código,
+                e que recebe o useRouter do Next, a "/" que é o path para o index.js: */
+      router.push("/");
+    });
+  }
 
   return (
     <main
@@ -40,45 +70,15 @@ export default function LoginScreen() {
         </section>
 
         <section className="formArea">
-          <form
-            className="box"
-            onSubmit={(event) => {
-              event.preventDefault();
-              console.log("Usuário: ", githubUser);
-              /* Verifica se o usuário existe ou não, na api já
-                existente da Alura:*/
-              fetch("https://alurakut.vercel.app/api/login", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                //Transforma em string pelo padrão Json, a var de usuário:
-                body: JSON.stringify({ githubUser: githubUser })
-              }).then(async (serverResponse) => {
-                //Transforma a resposta do server em json:
-                const serverData = await serverResponse.json();
-                const token = serverData.token;
-                /*Cria um novo cookie com o token recebido do server: 
-                com a sintaxe:
-                "nookies.set(ctx/Contexto(Se Não tiver é nulo), NomeInfo, valorInfo)"*/
-                nookies.set(null, "USER_TOKEN", token, {
-                  path: "/",
-                  /*Data de expiração/auto destruição
-                  do Cookie (em seg):*/
-                  maxAge: 86400 * 7 //<- 1 semana (1 dia em seg * 7)
-                });
-                /* Manda pra const "router", criada lá em cima do código,
-                e que recebe o useRouter do Next, a "/" que é o path para o index.js: */
-                router.push("/");
-              });
-            }}
-          >
+          <form className="box" onSubmit={(event) => handleSignIn(event)}>
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
             </p>
+
             {/* A prop "value={}" é o que integra o estado da var do React
             com oq é digitado no input. Sendo ela, o estado inicial imutável
             do input. E o onChange o valor/estado alterável: */}
+
             <input
               placeholder="Usuário"
               value={githubUser}
@@ -89,17 +89,8 @@ export default function LoginScreen() {
             />
             {/* Tratamento de erro: */}
             {githubUser.length === 0 ? "Preencha o campo" : ""}
-            {!userExist && (
-              <span
-                style={{ fontSize: "13px", color: "red", marginBottom: "12px" }}
-              >
-                Este usuário é inválido! Tente novamente
-              </span>
-            )}
 
-            <button type="submit" disabled={isLoading ? true : false}>
-              {isLoading ? "Entrando..." : "Entrar"}
-            </button>
+            <button type="submit">Entrar</button>
           </form>
 
           {/* <footer className="box">

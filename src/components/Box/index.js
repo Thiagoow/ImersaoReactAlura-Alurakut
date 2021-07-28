@@ -20,6 +20,13 @@ const Box = styled.div`
     font-weight: 400;
     margin-bottom: 20px;
   }
+  .subPageTitle {
+    font-size: 28px;
+    text-align: center;
+  }
+  .bio {
+    text-align: center;
+  }
   .subTitle {
     font-size: 18px;
     font-weight: 400;
