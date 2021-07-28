@@ -296,22 +296,19 @@ apenas no terminal onde seu projeta está sendo compilado*/
 
 /* Só deixa o usuário acessar essa página Home, SE ele
 estiver autenticado, com um usuário existente do GitHub: */
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   /* Pega o githubUser digitado pelo usuário na 
   tela de login a partir do cookie de TOKEN: */
   const cookies = nookies.get(context);
   const token = cookies.USER_TOKEN;
-  /*TODO:
-  Consertar a var cookies que retorna como objeto vazio*/
-  console.log(cookies);
-  //Quando tiver funfando:
-  /*Decodifica o token com a biblioteca jsonwebtoken
+
+  //Decodifica o token com a biblioteca jsonwebtoken:
   const { githubUser } = jwt.decode(token);
-  console.log("Token decodificado do Cookie:", githubUser);*/
+  console.log("Token decodificado do Cookie:", githubUser);
 
   return {
     props: {
-      githubUser: "Thiagoow"
+      githubUser
       /*Quando tiver funfando:
       githubUser
       */
