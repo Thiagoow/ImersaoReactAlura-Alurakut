@@ -35,7 +35,7 @@
 ---
 
 <p align="center"> Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!</b>
-<p align="center">(será muito bem-vinda)</p> 
+<p align="center">(será muito bem-vinda)</p>
 
 ---
 
