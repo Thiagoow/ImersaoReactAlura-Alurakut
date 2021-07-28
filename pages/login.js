@@ -88,7 +88,7 @@ export default function LoginScreen() {
               }}
             />
             {/* Tratamento de erro: */}
-            {githubUser.length === 0 ? "Preencha o campo" : ""}
+            {githubUser.length === 0 ? "Preencha o campo acima 😁" : ""}
 
             <button type="submit">Entrar</button>
           </form>

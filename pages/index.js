@@ -42,12 +42,7 @@ export default function Home(props) {
   const [scraps, setScraps] = React.useState([]);
   const [formOption, setFormOption] = React.useState(0);
 
-  const [communityTitle, setCommunityTitle] = React.useState("");
-  const [communityImage, setCommunityImage] = React.useState("");
-  const [description, setDescription] = React.useState("");
-
-  const [isCreatingCommunity, setIsCreatingCommunity] = React.useState(false);
-  const [isCreatingScrap, setIsCreatingScrap] = React.useState(false);
+  const [recadoTxt, setRecadoTxt] = React.useState("");
 
   /* Essa é a var que representa você 😁 =
   O user da rede social Alurakut. Sendo o seu nome,
@@ -162,6 +157,47 @@ export default function Home(props) {
     setIsShowingMoreComunidades(!isShowingMoreComunidades);
   }
 
+  //Função de criar comunidades:
+  function criaComunidade(event) {
+    /* Previne o refresh da página, E nesse caso, como
+    estamos sem SSR: a falha no salvamento da comunidade: */
+    event.preventDefault();
+
+    /* Retorna os dados do form na var "dadosForm" */
+    const dadosForm = new FormData(event.target);
+
+    console.log("Nome Comunidade: ", dadosForm.get("title"));
+    console.log("URL da imagem: ", dadosForm.get("image"));
+
+    /* Armazena num objeto, os dados digitados no
+    formulário: */
+    const newComunidade = {
+      title: dadosForm.get("title"),
+      imageurl: dadosForm.get("image"),
+      creatorSlug: user
+    };
+
+    /* */
+    fetch("/api/comunidades", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newComunidade)
+    }).then(async (response) => {
+      const dados = await response.json();
+      console.log(dados.registroCriado);
+      const newComunidade = dados.registroCriado;
+      /* Usando o operador spread (...), 
+    envia o novo item pra array de comunidades: */
+      const comunidadesAtualizadas = [...comunidades, newComunidade];
+      /* Altera o estado da array, 
+    inserindo um novo item, como se fosse o: 
+      comunidades.push("item"); */
+      setComunidades(comunidadesAtualizadas);
+    });
+  }
+
   return (
     <>
       {/* Importa o Header/Menu existente lá em "src\lib\AlurakutCommons.js": */}
@@ -221,73 +257,44 @@ export default function Home(props) {
               <button onClick={() => setFormOption(1)}>Deixar um recado</button>
             </div>
             {formOption === 0 ? (
-              <form onSubmit={(e) => handleCreateCommunity(e)}>
+              <form onSubmit={(event) => criaComunidade(event)}>
                 <div>
                   <input
-                    placeholder="📝 Digite um nome para sua comunidade"
-                    value={communityTitle}
-                    onChange={(e) => setCommunityTitle(e.target.value)}
-                    aria-label="📝 Digite um nome para sua comunidade"
+                    placeholder="📝 Qual o nome da sua comunidade?"
                     type="text"
-                  />
-                </div>
-                <div>
-                  <input
-                    placeholder="🖼 Insira uma URL para usar como imagem de capa"
-                    value={communityImage}
-                    onChange={(e) => setCommunityImage(e.target.value)}
-                    aria-label="🖼 Insira uma URL para usar como imagem de capa"
-                    type="text"
+                    name="title"
+                    aria-label="📝 Qual o nome da sua comunidade?"
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={!isCreatingCommunity ? "" : true}
-                >
-                  {isCreatingCommunity ? "Criando..." : "Criar comunidade"}
-                </button>
+                <div>
+                  <input
+                    placeholder="🖼️ Qual a URL de imagem da capa da sua comunidade?"
+                    name="image"
+                    aria-label="🖼️ Qual a URL de imagem da capa da sua comunidade?"
+                  />
+                </div>
+
+                <button>Criar comunidade</button>
               </form>
             ) : (
-              <form onSubmit={(e) => handleCreateScrap(e)}>
+              <form onSubmit={(event) => criaRecado(event)}>
                 <div>
                   <textarea
-                    placeholder="Digite seu recado aqui..."
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    aria-label="Digite seu recado aqui"
+                    placeholder="✏ Digite seu recado aqui 😁"
+                    value={recadoTxt}
+                    onChange={(e) => setRecadoTxt(e.target.value)}
+                    aria-label="✏ Digite seu recado aqui 😁"
                     type="text"
                     autoComplete="off"
                     // required
                   />
                 </div>
 
-                <button type="submit" disabled={!isCreatingScrap ? "" : true}>
-                  {isCreatingScrap ? "Enviando..." : "Enviar recado"}
-                </button>
+                <button type="submit">Enviar</button>
               </form>
             )}
           </Box>
-          {scraps.length > 0 && (
-            <Box>
-              <h1 className="subTitle">Recados recentes</h1>
-              <ul>
-                {scraps.map((scrap) => {
-                  return (
-                    <Scrap key={scrap.id}>
-                      <a>
-                        <img src={`https://github.com/${scrap.username}.png`} />
-                      </a>
-                      <div>
-                        <span>{scrap.username}</span>
-                        <p>{scrap.description}</p>
-                      </div>
-                    </Scrap>
-                  );
-                })}
-              </ul>
-            </Box>
-          )}
         </div>
 
         <div
