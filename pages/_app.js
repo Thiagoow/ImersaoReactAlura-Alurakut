@@ -14,8 +14,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: sans-serif;
-    background-color: #D9E6F6;
-  }
+    /* Estilização do fundo de toda a aplicação: */
+    background: linear-gradient(180deg, rgba(69,180,252,1) 10%, rgba(29,60,253,1) 50%, rgba(4,3,106,1) 100%);  }
 
 /* Definindo um pouco do layout padrão */
 #__next {

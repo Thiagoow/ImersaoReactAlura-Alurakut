@@ -23,23 +23,8 @@ as infos do token, que está dentro do cookie: */
 import jwt from "jsonwebtoken";
 import { checkUserAuth } from "../src/hooks/checkUserAuth";
 
-/* Componente ProfileRelations: */
-function ProfileRelationsBox(props) {
-  return (
-    <ProfileRelationsBoxWrapper>
-      <h2 className="smallTitle">
-        {/* Mostra a quantidade de items na array: */}
-        {props.title} ({props.items.length}):
-      </h2>
-
-      {/*  */}
-    </ProfileRelationsBoxWrapper>
-  );
-}
-
 //Componente principal DENTRO desse componente Master:
 export default function Home(props) {
-  const [scraps, setScraps] = React.useState([]);
   const [formOption, setFormOption] = React.useState(0);
 
   const [recadoTxt, setRecadoTxt] = React.useState("");
@@ -201,7 +186,9 @@ export default function Home(props) {
   return (
     <>
       {/* Importa o Header/Menu existente lá em "src\lib\AlurakutCommons.js": */}
-      <AlurakutMenu />
+      <AlurakutMenu githubUser={user} />{" "}
+      {/* Define a foto e nome do
+      usuário no menu hambúrguer */}
       <MainGrid>
         <div className="profileArea" style={{ gridArea: "profileArea" }}>
           <Box as="aside">
@@ -251,11 +238,13 @@ export default function Home(props) {
 
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
-
             <div className="optionButtons">
               <button onClick={() => setFormOption(0)}>Criar comunidade</button>
               <button onClick={() => setFormOption(1)}>Deixar um recado</button>
             </div>
+
+            <br />
+
             {formOption === 0 ? (
               <form onSubmit={(event) => criaComunidade(event)}>
                 <div>
@@ -264,6 +253,7 @@ export default function Home(props) {
                     type="text"
                     name="title"
                     aria-label="📝 Qual o nome da sua comunidade?"
+                    value={comunidades.title}
                   />
                 </div>
 
@@ -272,6 +262,7 @@ export default function Home(props) {
                     placeholder="🖼️ Qual a URL de imagem da capa da sua comunidade?"
                     name="image"
                     aria-label="🖼️ Qual a URL de imagem da capa da sua comunidade?"
+                    value={comunidades.imageurl}
                   />
                 </div>
 
@@ -307,7 +298,7 @@ export default function Home(props) {
           >
             <h2 className="smallTitle">Seguidores ({seguidores.length}):</h2>
             <ul>
-              {seguidores.map((item) => {
+              {seguidores.slice(0, 6).map((item) => {
                 return (
                   <li key={item.id}>
                     <Link href={`/profile/${item.login}`} passHref>
@@ -340,7 +331,7 @@ export default function Home(props) {
             <h2 className="smallTitle">Comunidades ({comunidades.length}):</h2>
 
             <ul>
-              {comunidades.map((item) => {
+              {comunidades.slice(0, 6).map((item) => {
                 return (
                   <li key={item.id}>
                     <Link href={`/comunidades/${item.id}`} passHref>
@@ -383,7 +374,7 @@ export default function Home(props) {
           >
             <h2 className="smallTitle">Você segue ({seguindo.length}):</h2>
             <ul>
-              {seguindo.map((item) => {
+              {seguindo.slice(0, 6).map((item) => {
                 return (
                   <li key={item.id}>
                     <Link href={`/profile/${item.login}`} passHref>

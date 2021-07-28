@@ -43,11 +43,12 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
+          {/* Desloga o usuário destruindo
+          o cookie de login: */}
           <Link
             href="/login"
             onClick={() => {
               destroyCookie(null, "token");
-              destroyCookie(null, "userId");
             }}
           >
             Sair
@@ -258,11 +259,13 @@ export function AlurakutProfileSidebarMenuDefault({
               <img src={`${BASE_URL}/icons/plus.svg`} />
               GitHub Trends
             </Link>
+
+            {/* Desloga o usuário destruindo
+            o cookie de login: */}
             <Link
               href="/login"
               onClick={() => {
                 destroyCookie(null, "token");
-                destroyCookie(null, "userId");
               }}
             >
               <img src={`${BASE_URL}//icons/logout.svg`} />
