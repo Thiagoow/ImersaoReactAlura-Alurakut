@@ -78,8 +78,8 @@
   - [x] Deixar o seu projeto com a sua cara.
 - Aula 02
   - [x] Criar suas comunidades para compartilhar com o time da Alura;
-  - [x] Facilitar o cadastro da url da imagem;
-  - [x] Adicionar links para as suas comunidades
+  - [] Facilitar o cadastro da url da imagem;
+  - [] Adicionar links para as suas comunidades
   - [x] Adicionar o seu projeto na nossa vitrine;
   - [x] Deixar o seu read me do projeto bonitão.
 - Aula 03
@@ -89,7 +89,7 @@
   - [x] Subir sua aplicação na Vercel.
 - Aula 04
   - [x] Configurar suas variáveis de ambiente;
-  - [x] Fazer os scraps;
+  - [] Fazer os scraps;
   - [x] Subir sua aplicação na Vercel.
 - Aula 05
   - [x] Fazer o logout da aplicação;
