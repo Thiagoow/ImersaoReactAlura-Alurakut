@@ -22,15 +22,6 @@
 <a href="https://git-scm.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a>
 <a href="https://www.figma.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> </p>
 
-## ✔ Funcionalidades do projeto
-
-- Logout funcionando;
-- Campos dos formulários obrigatórios;
-- Inputs dos formulários vazios após post;
-- Seguidores/Seguindo de acordo com o usuário;
-- Possibilidade de criar comunidades;
-- Adicionar comentários na pagina.
-
 ## 👩‍🏫/👨‍🏫 Instrutores
 
 - <a href="https://twitter.com/omariosouto">Mario Souto</a> <br>
