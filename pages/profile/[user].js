@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import nookies from "nookies";
 import {
   AlurakutMenu,
   AlurakutProfileSidebarMenuDefault,
@@ -13,6 +12,7 @@ import Box from "../../src/components/Box";
 import { ProfileRelationsBoxWrapper } from "../../src/components/ProfileRelations";
 import InfoBox from "../../src/components/InfoBox";
 
+import nookies from "nookies";
 import jwt from "jsonwebtoken";
 import { checkUserAuth } from "../../src/hooks/checkUserAuth";
 
@@ -22,13 +22,13 @@ export default function Profile() {
   const githubUser = user;
 
   const [userInfo, setUserInfo] = React.useState({});
-  const [isShowingMoreFollowers, setIsShowingMoreFollowers] =
+  const [isShowingMoreSeguidores, setIsShowingMoreSeguidores] =
     React.useState(false);
-  const [isShowingMoreCommunities, setIsShowingMoreCommunities] =
+  const [isShowingMoreComunidades, setIsShowingMoreComunidades] =
     React.useState(false);
 
-  const [followers, setFollowers] = React.useState([]);
-  const [communities, setCommunities] = React.useState([]);
+  const [seguidores, setSeguidores] = React.useState([]);
+  const [comunidades, setComunidades] = React.useState([]);
 
   function getGithubUserInfo() {
     fetch(`https://api.github.com/users/${githubUser}`)
@@ -44,26 +44,27 @@ export default function Profile() {
       .catch((error) => console.error(error));
   }
 
-  function getGithubFollowers() {
+  function getGithubSeguidores() {
     fetch(`https://api.github.com/users/${githubUser}/followers`)
       .then((res) => res.json())
-      .then((data) => setFollowers(data))
+      .then((data) => setSeguidores(data))
       .catch((error) => console.error(error));
   }
 
   React.useEffect(() => {
     getGithubUserInfo();
-    getGithubFollowers();
+    getGithubSeguidores();
   }, [githubUser]);
 
-  function handleShowMoreFollowers(e) {
+  /* Função que dá o toggle 
+  nas vars pra mostrar mais ou não: */
+  function toggleShowMoreSeguidores(e) {
     e.preventDefault();
-    setIsShowingMoreFollowers(!isShowingMoreFollowers);
+    setIsShowingMoreSeguidores(!isShowingMoreSeguidores);
   }
-
-  function handleShowMoreCommunities(e) {
+  function toggleShowMoreComunidades(e) {
     e.preventDefault();
-    setIsShowingMoreCommunities(!isShowingMoreCommunities);
+    setIsShowingMoreComunidades(!isShowingMoreComunidades);
   }
 
   return (
@@ -102,16 +103,16 @@ export default function Profile() {
             </h1>
             <span className="bio">{userInfo.bio}</span>
 
-            <OrkutNostalgicIconSet />
+            <OrkutNostalgicIconSet confiável={3} legal={3} sexy={3} />
 
             <InfoBox>
               <tbody>
                 <tr>
-                  <td className="textOnRight">localização:</td>
+                  <td className="textOnCenter">Região:</td>
                   <td>{userInfo.location}</td>
                 </tr>
                 <tr>
-                  <td className="textOnRight">membro desde:</td>
+                  <td className="textOnCenter">Membro desde:</td>
                   <td>{new Date(userInfo.createdAt).toLocaleDateString()}</td>
                 </tr>
               </tbody>
@@ -123,11 +124,11 @@ export default function Profile() {
           style={{ gridArea: "profileRelationsArea" }}
         >
           <ProfileRelationsBoxWrapper
-            isShowingMoreItems={isShowingMoreFollowers}
+            isShowingMoreItems={isShowingMoreSeguidores}
           >
-            <h2 className="smallTitle">Amigos ({followers.length})</h2>
+            <h2 className="smallTitle">Amigos ({seguidores.length})</h2>
             <ul>
-              {followers.map((item) => {
+              {seguidores.map((item) => {
                 return (
                   <li key={item.id}>
                     <Link href={`/profile/${item.login}`} passHref>
@@ -140,29 +141,31 @@ export default function Profile() {
                 );
               })}
             </ul>
-            {followers.length > 6 && (
+            {seguidores.length > 6 && (
               <>
                 <hr />
                 <button
                   className="toggleButton"
-                  onClick={(e) => handleShowMoreFollowers(e)}
+                  onClick={(e) => toggleShowMoreSeguidores(e)}
                 >
-                  {isShowingMoreFollowers ? "Ver menos" : "Ver mais"}
+                  {isShowingMoreSeguidores ? "Ver menos" : "Ver mais"}
                 </button>
               </>
             )}
           </ProfileRelationsBoxWrapper>
+
+          {/* Seção de comunidades: */}
           <ProfileRelationsBoxWrapper
-            isShowingMoreItems={isShowingMoreCommunities}
+            isShowingMoreItems={isShowingMoreComunidades}
           >
             <h2 className="smallTitle">
-              Minhas comunidades ({communities.length})
+              Minhas comunidades ({comunidades.length})
             </h2>
             <ul>
-              {communities.map((item) => {
+              {comunidades.map((item) => {
                 return (
                   <li key={item.id}>
-                    <Link href={`/communities/${item.id}`} passHref>
+                    <Link href={`/comunidades/${item.id}`} passHref>
                       <a>
                         <img src={item.imageUrl} />
                         <span>{item.title}</span>
@@ -172,14 +175,14 @@ export default function Profile() {
                 );
               })}
             </ul>
-            {communities.length > 6 && (
+            {comunidades.length > 6 && (
               <>
                 <hr />
                 <button
                   className="toggleButton"
-                  onClick={(e) => handleShowMoreCommunities(e)}
+                  onClick={(e) => toggleShowMoreComunidades(e)}
                 >
-                  {isShowingMoreCommunities ? "Ver menos" : "Ver mais"}
+                  {isShowingMoreComunidades ? "Ver menos" : "Ver mais"}
                 </button>
               </>
             )}

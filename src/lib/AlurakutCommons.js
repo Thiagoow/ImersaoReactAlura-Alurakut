@@ -365,7 +365,7 @@ export function OrkutNostalgicIconSet(props) {
         </li>
       ))}
       {[
-        { name: "Confiável", slug: "confiavel", icon: "smile" },
+        { name: "Confiável", slug: "confiável", icon: "smile" },
         { name: "Legal", slug: "legal", icon: "cool" },
         { name: "Sexy", slug: "sexy", icon: "heart" }
       ].map(({ name, slug, icon }) => {

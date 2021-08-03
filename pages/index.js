@@ -72,7 +72,7 @@ export default function Home(props) {
     React.useState(false);
 
   /* Cria a var de seguidores, com o estado inicial já sendo uma array vazia,
-  e a var pra alterar o estado da array de comunidades: */
+  e a var pra alterar o estado da array de seguidores: */
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(function () {
     //Pega os dados dos seguidores do usuário
@@ -220,7 +220,7 @@ export default function Home(props) {
             </h1>
             <p className="bio">{userInfo.bio}</p>
 
-            <OrkutNostalgicIconSet confiavel={3} legal={3} sexy={3} />
+            <OrkutNostalgicIconSet confiável={3} legal={3} sexy={3} />
 
             <InfoBox>
               <tbody>
