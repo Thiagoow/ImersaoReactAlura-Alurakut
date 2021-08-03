@@ -2,14 +2,13 @@
 <img src="./public/pageIcon.ico" align="center">
 </div>
 <h1 align="center">Imersão React - Alurakut</h1>
-<h4 align="center">A Imersão React é gratuita e é voltada para profissionais, estudantes e para todo mundo que quer aprender mais sobre front-end. Nesta imersão vamos mergulhar no passado e dominar o futuro com o Alurakut! O projeto é uma versão do Orkut, criado com React, styled-components e next/js. </h4>
-
-<h2 align="center"><a href="">Clique aqui para ver meu projeto final!</a></h2>
+<p align="center">A Imersão React é gratuita e é voltada para profissionais, estudantes e para todo mundo que quer aprender mais sobre front-end. Nesta imersão vamos mergulhar no passado e dominar o futuro com o Alurakut! O projeto é uma versão do Orkut, criado com React, styled-components e next/js. </p>
 
 ## 📺 Screenshot
 
 <div align="center">
 <img src="./ReadMeFiles/app.jpg" align="center">
+<h2><a href="">Clique aqui para ver meu projeto final!</a></h2>
 </div>
 
 ## 👨🏻‍💻 Linguagens e tecnologias utilizadas
@@ -30,13 +29,6 @@
 
 <b><a href="https://github.com/alura-challenges/alurakut">Clique aqui para ver o projeto dos outros participantes!</a></b>
 
----
-
-<p align="center"> Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!</b>
-<p align="center">(será muito bem-vinda)</p>
-
----
-
 ## ⚙ Instalação
 
 <code>
@@ -50,6 +42,13 @@
     $ npm run dev
 
 <a href="styled-components.md">Example app with styled-components</a>
+
+---
+
+<p align="center"> Aproveita e deixa algum comentário sobre o projeto ou alguma sugestão!</b>
+<p align="center">(será muito bem-vinda)</p>
+
+---
 
 ## 📂 Referências
 
