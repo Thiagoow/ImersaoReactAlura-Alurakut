@@ -51,43 +51,6 @@
 
 <a href="styled-components.md">Example app with styled-components</a>
 
-## 📚 Objetivos do projeto
-
-- Melhorar o entendimento de roteamento de páginas;
-- Aprender a exibir o conteúdo de uma API em páginas HTML;
-- Organizar pastas e componentes;
-- Pesquisar boas práticas com React e NextJs.
-
-## 🎯 Desafios da Imersão
-
-- Aula 01
-  - [x] Pegar os dados da API do GitHub e listar seus seguidores;
-  - [x] Adicionar quão confiável, legal e sexy você é;
-  - [ ] Usar Strategy ao invés de vários ifs no css;
-  - [x] Separar e organizar o seu código;
-  - [x] Publicar o seu projeto;
-  - [x] Deixar o seu projeto com a sua cara.
-- Aula 02
-  - [x] Criar suas comunidades para compartilhar com o time da Alura;
-  - [] Facilitar o cadastro da url da imagem;
-  - [] Adicionar links para as suas comunidades
-  - [x] Adicionar o seu projeto na nossa vitrine;
-  - [x] Deixar o seu read me do projeto bonitão.
-- Aula 03
-  - [x] Terminar de listar seus seguidores através da api do Github;
-  - [x] Adicionar suas comunidades no DatoCMS;
-  - [x] Organizar os seus dados, pensando no que irá querer que apareça no seu Alurakut e criando os modelos que precisar;
-  - [x] Subir sua aplicação na Vercel.
-- Aula 04
-  - [x] Configurar suas variáveis de ambiente;
-  - [] Fazer os scraps;
-  - [x] Subir sua aplicação na Vercel.
-- Aula 05
-  - [x] Fazer o logout da aplicação;
-  - [ ] Mensagem de feedback quando não conseguir logar na aplicação;
-  - [x] Criar página de perfil do usuário;
-  - [x] Subir a sua aplicação na Vercel e compartilhar com o time da Alura.
-
 ## 📂 Referências
 
   <details>
