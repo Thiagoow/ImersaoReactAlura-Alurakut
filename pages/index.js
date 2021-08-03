@@ -416,14 +416,14 @@ export async function getServerSideProps(context) {
   const cookies = nookies.get(context);
   const userToken = cookies.USER_TOKEN;
 
+  /* Verifica a autorização do usuário com o hook custom, 
+  a partir do Token dele (Se ele existe ou não, no GitHub): */
+  const isAuthenticated = await checkUserAuth(userToken);
+
   //Decodifica o token com a biblioteca jsonwebtoken:
   const { githubUser } = jwt.decode(userToken);
   //console.log("Token decodificado do Cookie:", token);
 
-  /* Verifica a autorização do usuário com o hook custom, 
-  a partir do Token dele (Se ele existe ou não, no GitHub): 
-  */
-  const isAuthenticated = await checkUserAuth(userToken);
   //Caso o usuário não esteja autenticado:
   if (!isAuthenticated) {
     return {
