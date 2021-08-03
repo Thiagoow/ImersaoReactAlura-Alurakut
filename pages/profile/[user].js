@@ -219,10 +219,6 @@ export async function getServerSideProps(context) {
     };
   }
 
-  //Decodifica o token com a biblioteca jsonwebtoken:
-  const { githubUser } = jwt.decode(userToken);
-  //console.log("Token decodificado do Cookie:", token);
-
   /* Se o usuário estiver autenticado, 
   retorna ele como prop pro componente Home: */
   return {
