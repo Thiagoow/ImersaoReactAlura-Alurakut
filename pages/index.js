@@ -298,7 +298,7 @@ export default function Home(props) {
           >
             <h2 className="smallTitle">Seguidores ({seguidores.length}):</h2>
             <ul>
-              {seguidores.slice(0, 6).map((item) => {
+              {seguidores.map((item) => {
                 return (
                   <li key={item.id}>
                     <Link href={`/profile/${item.login}`} passHref>
@@ -331,7 +331,7 @@ export default function Home(props) {
             <h2 className="smallTitle">Comunidades ({comunidades.length}):</h2>
 
             <ul>
-              {comunidades.slice(0, 6).map((item) => {
+              {comunidades.map((item) => {
                 return (
                   <li key={item.id}>
                     <Link href={`/comunidades/${item.id}`} passHref>
@@ -374,7 +374,7 @@ export default function Home(props) {
           >
             <h2 className="smallTitle">Você segue ({seguindo.length}):</h2>
             <ul>
-              {seguindo.slice(0, 6).map((item) => {
+              {seguindo.map((item) => {
                 return (
                   <li key={item.id}>
                     <Link href={`/profile/${item.login}`} passHref>

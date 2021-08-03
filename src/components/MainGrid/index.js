@@ -4,12 +4,13 @@ import styled from "styled-components";
 apenas a estilização: */
 const MainGrid = styled.main`
   width: 100%;
+  max-width: 500px;
+  /* display: grid; */
   grid-gap: 10px;
+  padding: 16px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 500px;
-  padding: 16px;
-  .profileArea {
+  .profile-area {
     display: none;
     @media (min-width: 860px) {
       display: block;
@@ -19,10 +20,9 @@ const MainGrid = styled.main`
     max-width: 1110px;
     display: grid;
     grid-template-areas: "profileArea welcomeArea profileRelationsArea";
-    grid-template-columns: 160px 1fr 312px;
+    grid-template-columns: ${(props) =>
+      props.grid === 2 ? "160px 1fr 0px" : "160px 1fr 312px"};
   }
 `;
 
-/* Exporta o componente acima para podermos
-usar em outros componentes: */
 export default MainGrid;

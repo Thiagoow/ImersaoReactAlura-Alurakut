@@ -1,15 +1,16 @@
 import styled from "styled-components";
-import Box from "../Box";
+import Box from "../Box/index";
 
-/* Componente ProfileRelationsBoxWrapper, que contém 
-apenas a estilização, E JÁ SE EXPORTA, ASSIM QUE CRIADO:
-(com o export na frente do const) */
 export const ProfileRelationsBoxWrapper = styled(Box)`
   ul {
     display: grid;
     grid-gap: 8px;
     grid-template-columns: 1fr 1fr 1fr;
-    max-height: 220px;
+
+    /* Faz o botão de mostrar mais/menos funcionar corretamente:
+    (a partir da prop "isShowingMoreItems") */
+    max-height: ${(props) => (props.isShowingMoreItems ? "" : "220px")};
+    overflow: hidden;
     list-style: none;
   }
   img {
@@ -51,5 +52,13 @@ export const ProfileRelationsBoxWrapper = styled(Box)`
       z-index: 1;
       background-image: linear-gradient(0deg, #00000073, transparent);
     }
+  }
+  .toggleButton {
+    background: none;
+    padding: 0;
+    font-size: 14px;
+    color: #2e7bb4;
+    font-weight: 600;
+    cursor: pointer;
   }
 `;
