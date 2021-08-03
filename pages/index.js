@@ -420,10 +420,6 @@ export async function getServerSideProps(context) {
   a partir do Token dele (Se ele existe ou não, no GitHub): */
   const isAuthenticated = await checkUserAuth(userToken);
 
-  //Decodifica o token com a biblioteca jsonwebtoken:
-  const { githubUser } = jwt.decode(userToken);
-  //console.log("Token decodificado do Cookie:", token);
-
   //Caso o usuário não esteja autenticado:
   if (!isAuthenticated) {
     return {
@@ -434,6 +430,10 @@ export async function getServerSideProps(context) {
       }
     };
   }
+
+  //Decodifica o token com a biblioteca jsonwebtoken:
+  const { githubUser } = jwt.decode(userToken);
+  //console.log("Token decodificado do Cookie:", token);
 
   /* Se o usuário estiver autenticado, 
   retorna ele como prop pro componente Home: */

@@ -192,6 +192,12 @@ export default function Profile() {
     </>
   );
 }
+/*A partir daqui, parte do SSR -> Server Side Rendering 
+= Não é exibe no navegador,e muitas vezes nem no console, 
+apenas no terminal onde seu projeta está sendo compilado*/
+
+/* Só deixa o usuário acessar essa página Home, SE ele
+estiver autenticado, com um usuário existente do GitHub: */
 export async function getServerSideProps(context) {
   /* Pega o githubUser digitado pelo usuário na 
   tela de login a partir do cookie de TOKEN: */
@@ -201,10 +207,6 @@ export async function getServerSideProps(context) {
   /* Verifica a autorização do usuário com o hook custom, 
   a partir do Token dele (Se ele existe ou não, no GitHub): */
   const isAuthenticated = await checkUserAuth(userToken);
-
-  //Decodifica o token com a biblioteca jsonwebtoken:
-  const { githubUser } = jwt.decode(userToken);
-  //console.log("Token decodificado do Cookie:", token);
 
   //Caso o usuário não esteja autenticado:
   if (!isAuthenticated) {
@@ -216,6 +218,10 @@ export async function getServerSideProps(context) {
       }
     };
   }
+
+  //Decodifica o token com a biblioteca jsonwebtoken:
+  const { githubUser } = jwt.decode(userToken);
+  //console.log("Token decodificado do Cookie:", token);
 
   /* Se o usuário estiver autenticado, 
   retorna ele como prop pro componente Home: */
