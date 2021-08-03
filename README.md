@@ -8,7 +8,7 @@
 
 <div align="center">
 <img src="./ReadMeFiles/app.jpg" align="center">
-<h2><a href="">Clique aqui para ver meu projeto final!</a></h2>
+<h2><a href="https://alurakut-thiagoow.netlify.app/login">Clique aqui para ver meu projeto final!</a></h2>
 </div>
 
 ## 👨🏻‍💻 Linguagens e tecnologias utilizadas
