@@ -1,19 +1,22 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+/* Ao invés de definir a estilização via Next nesse componente, igual
+todos os outros importados aqui, esse é o componente Master/Pai de todos,
+o qual não contém estilização própria, apenas a que já está definida nos outros
+componentes, aqui importados 😉😁: */
 import {
   AlurakutMenu,
   AlurakutProfileSidebarMenuDefault,
   OrkutNostalgicIconSet
 } from "../../src/lib/AlurakutCommons";
-
 import MainGrid from "../../src/components/MainGrid";
 import Box from "../../src/components/Box";
 import { ProfileRelationsBoxWrapper } from "../../src/components/ProfileRelations";
 import InfoBox from "../../src/components/InfoBox";
-
+// Importando a biblioteca de Cookies para o SSR de página:
 import nookies from "nookies";
-import jwt from "jsonwebtoken";
+//Importando o hook que checa se o user está ou não autenticado:
 import { checkUserAuth } from "../../src/hooks/checkUserAuth";
 
 export default function Profile() {
@@ -24,11 +27,11 @@ export default function Profile() {
   const [userInfo, setUserInfo] = React.useState({});
   const [isShowingMoreSeguidores, setIsShowingMoreSeguidores] =
     React.useState(false);
-  const [isShowingMoreComunidades, setIsShowingMoreComunidades] =
+  const [isShowingMoreSeguindo, setIsShowingMoreSeguindo] =
     React.useState(false);
 
   const [seguidores, setSeguidores] = React.useState([]);
-  const [comunidades, setComunidades] = React.useState([]);
+  const [seguindo, setSeguindo] = React.useState([]);
 
   function getGithubUserInfo() {
     fetch(`https://api.github.com/users/${githubUser}`)
@@ -45,15 +48,29 @@ export default function Profile() {
   }
 
   function getGithubSeguidores() {
-    fetch(`https://api.github.com/users/${githubUser}/followers`)
-      .then((res) => res.json())
-      .then((data) => setSeguidores(data))
-      .catch((error) => console.error(error));
+    fetch(`https://api.github.com/users/${user}/followers`)
+      .then(function (respostaServer) {
+        return respostaServer.json();
+      })
+      .then(function (respostaJSON) {
+        setSeguidores(respostaJSON);
+      });
+  }
+
+  function getGithubSeguindo() {
+    fetch(`https://api.github.com/users/${githubUser}/following`)
+      .then(function (respostaServer) {
+        return respostaServer.json();
+      })
+      .then(function (respostaJSON) {
+        setSeguindo(respostaJSON);
+      });
   }
 
   React.useEffect(() => {
     getGithubUserInfo();
     getGithubSeguidores();
+    getGithubSeguindo();
   }, [githubUser]);
 
   /* Função que dá o toggle 
@@ -62,9 +79,9 @@ export default function Profile() {
     e.preventDefault();
     setIsShowingMoreSeguidores(!isShowingMoreSeguidores);
   }
-  function toggleShowMoreComunidades(e) {
+  function toggleShowMoreSeguindo(e) {
     e.preventDefault();
-    setIsShowingMoreComunidades(!isShowingMoreComunidades);
+    setIsShowingMoreSeguindo(!isShowingMoreSeguindo);
   }
 
   return (
@@ -123,10 +140,11 @@ export default function Profile() {
           className="profileRelationsArea"
           style={{ gridArea: "profileRelationsArea" }}
         >
+          {/* Seção de seguidores: */}
           <ProfileRelationsBoxWrapper
             isShowingMoreItems={isShowingMoreSeguidores}
           >
-            <h2 className="smallTitle">Amigos ({seguidores.length})</h2>
+            <h2 className="smallTitle">Seguidores ({seguidores.length}):</h2>
             <ul>
               {seguidores.map((item) => {
                 return (
@@ -154,35 +172,33 @@ export default function Profile() {
             )}
           </ProfileRelationsBoxWrapper>
 
-          {/* Seção de comunidades: */}
+          {/* Seção de seguindo: */}
           <ProfileRelationsBoxWrapper
-            isShowingMoreItems={isShowingMoreComunidades}
+            isShowingMoreItems={isShowingMoreSeguindo}
           >
-            <h2 className="smallTitle">
-              Minhas comunidades ({comunidades.length})
-            </h2>
+            <h2 className="smallTitle">Seguindo ({seguindo.length}):</h2>
             <ul>
-              {comunidades.map((item) => {
+              {seguindo.map((item) => {
                 return (
                   <li key={item.id}>
-                    <Link href={`/comunidades/${item.id}`} passHref>
+                    <Link href={`/profile/${item.login}`} passHref>
                       <a>
-                        <img src={item.imageUrl} />
-                        <span>{item.title}</span>
+                        <img src={`https://github.com/${item.login}.png`} />
+                        <span>{item.login}</span>
                       </a>
                     </Link>
                   </li>
                 );
               })}
             </ul>
-            {comunidades.length > 6 && (
+            {seguindo.length > 6 && (
               <>
                 <hr />
                 <button
                   className="toggleButton"
-                  onClick={(e) => toggleShowMoreComunidades(e)}
+                  onClick={(e) => toggleShowMoreSeguindo(e)}
                 >
-                  {isShowingMoreComunidades ? "Ver menos" : "Ver mais"}
+                  {isShowingMoreSeguindo ? "Ver menos" : "Ver mais"}
                 </button>
               </>
             )}

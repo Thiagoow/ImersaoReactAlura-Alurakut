@@ -3,10 +3,7 @@ import Link from "next/link";
 /* Ao invés de definir a estilização via Next nesse componente, igual
 todos os outros importados aqui, esse é o componente Master/Pai de todos,
 o qual não contém estilização própria, apenas a que já está definida nos outros
-componentes, aqui importados 😉😁: 
-
-Ou seja, trazendo isso pro Atomic Design, esse seria uma
-*/
+componentes, aqui importados 😉😁: */
 import MainGrid from "../src/components/MainGrid";
 import Box from "../src/components/Box";
 import {
@@ -16,11 +13,12 @@ import {
 } from "../src/lib/AlurakutCommons";
 import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelations";
 import InfoBox from "../src/components/InfoBox";
-/* Importando a biblioteca de Cookies para o SSR de página: */
+// Importando a biblioteca de Cookies para o SSR de página:
 import nookies from "nookies";
 /* Importando a biblioteca pra decodificar 
 as infos do token, que está dentro do cookie: */
 import jwt from "jsonwebtoken";
+//Importando o hook que checa se o user está ou não autenticado:
 import { checkUserAuth } from "../src/hooks/checkUserAuth";
 
 //Componente principal DENTRO desse componente Master:
@@ -58,7 +56,7 @@ export default function Home(props) {
   amigos, etc: */
   const [seguindo, setSeguindo] = React.useState([]);
   /* Pega as pessoas que você segue no GitHub*/
-  React.useEffect(function () {
+  function getGithubSeguindo() {
     fetch(`https://api.github.com/users/${user}/following`)
       .then(function (respostaServer) {
         return respostaServer.json();
@@ -66,7 +64,7 @@ export default function Home(props) {
       .then(function (respostaJSON) {
         setSeguindo(respostaJSON);
       });
-  }, []);
+  }
   //Var pra mostrar mais ou menos "seguindo":
   const [isShowingMoreSeguindo, setIsShowingMoreSeguindo] =
     React.useState(false);
@@ -74,7 +72,7 @@ export default function Home(props) {
   /* Cria a var de seguidores, com o estado inicial já sendo uma array vazia,
   e a var pra alterar o estado da array de seguidores: */
   const [seguidores, setSeguidores] = React.useState([]);
-  React.useEffect(function () {
+  function getGithubSeguidores() {
     //Pega os dados dos seguidores do usuário
     fetch(`https://api.github.com/users/${user}/followers`)
       .then(function (respostaServer) {
@@ -83,7 +81,7 @@ export default function Home(props) {
       .then(function (respostaJSON) {
         setSeguidores(respostaJSON);
       });
-  }, []);
+  }
   //Var pra mostrar mais ou menos "seguidores":
   const [isShowingMoreSeguidores, setIsShowingMoreSeguidores] =
     React.useState(false);
@@ -91,9 +89,8 @@ export default function Home(props) {
   /* Cria a var de comunidades, com o estado inicial sendo uma array vazia,
   e a var pra alterar o estado da array de comunidades: */
   const [comunidades, setComunidades] = React.useState([]);
-
-  /* Pega a array de dados do GitHub: */
-  React.useEffect(function () {
+  /* Pega a array de comunidades do DatoCMS: */
+  function getComunidadesUser() {
     //API GraphQL, no Dato CMS:
     fetch("https://graphql.datocms.com/", {
       method: "POST",
@@ -122,10 +119,18 @@ export default function Home(props) {
         /* console.log(comunidadesDatoCMS); */
         setComunidades(comunidadesDatoCMS);
       });
-  }, []);
+  }
   //Var pra mostrar mais ou menos "comunidades":
   const [isShowingMoreComunidades, setIsShowingMoreComunidades] =
     React.useState(false);
+
+  /* Executa as funções de GET/Fetch com o 
+  React use Effect: */
+  React.useEffect(() => {
+    getComunidadesUser();
+    getGithubSeguidores();
+    getGithubSeguindo();
+  }, [user]);
 
   /* Função que dá o toggle 
   nas vars pra mostrar mais ou não: */
@@ -186,7 +191,7 @@ export default function Home(props) {
   return (
     <>
       {/* Importa o Header/Menu existente lá em "src\lib\AlurakutCommons.js": */}
-      <AlurakutMenu githubUser={user} />{" "}
+      <AlurakutMenu githubUser={user} />
       {/* Define a foto e nome do
       usuário no menu hambúrguer */}
       <MainGrid>

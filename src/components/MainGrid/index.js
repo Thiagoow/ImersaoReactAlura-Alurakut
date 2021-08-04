@@ -10,7 +10,7 @@ const MainGrid = styled.main`
   padding: 16px;
   margin-left: auto;
   margin-right: auto;
-  .profile-area {
+  .profileArea {
     display: none;
     @media (min-width: 860px) {
       display: block;

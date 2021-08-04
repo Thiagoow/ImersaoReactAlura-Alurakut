@@ -81,6 +81,7 @@ AlurakutMenu.Wrapper = styled.header`
   .alurakutMenuProfileSidebar {
     background: white;
     position: fixed;
+    display: flex;
     z-index: 100;
     padding: 46px;
     bottom: 0;
@@ -192,11 +193,16 @@ AlurakutMenu.Logo = styled.img`
 
 function AlurakutMenuProfileSidebar({ githubUser }) {
   return (
+    /* Adicionei um 'display: flex' nessa classe abaixo para centralizar */
     <div className="alurakutMenuProfileSidebar">
       <div>
+        {/* Ajustando a foto pra mobile: */}
         <img
           src={`https://github.com/${githubUser}.png`}
-          style={{ borderRadius: "8px" }}
+          style={{
+            borderRadius: "8px",
+            height: "200px"
+          }}
         />
 
         <hr />
